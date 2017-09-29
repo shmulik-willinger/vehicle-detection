@@ -1,37 +1,53 @@
 # Vehicle Detection
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-
-In this project, your goal is to write a software pipeline to detect vehicles in a video (start with the test_video.mp4 and later implement on full project_video.mp4), but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
-
-Creating a great writeup:
+Overview
 ---
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
+In this project, the goal is to write a software pipeline to detect vehicles in a video. First we'll train a model of deep neural networks and convolutional neural networks, and then we'll use this model to performed detection on video frames.
 
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/test-img.png?raw=true)
 
-You can submit your writeup in markdown or use another method and submit a pdf instead.
-
-The Project
+The Goals
 ---
-
 The goals / steps of this project are the following:
 
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
-* Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
+* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images binned it with a color transform, to train Linear SVM classifier
 * Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
+* Design, train and validate a model that perform vehicle detection on images
+* Use the model to detect vehicles on video frames
+* Summarize the results with a written report
 
-Here are links to the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples to train your classifier.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.   You are welcome and encouraged to take advantage of the recently released [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations) to augment your training data.  
+## Details About the Files
 
-Some example images for testing your pipeline on single frames are located in the `test_images` folder.  To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `ouput_images`, and include them in your writeup for the project by describing what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
+The project includes all required files and can be used to run the simulator in autonomous mode
 
-**As an optional challenge** Once you have a working pipeline for vehicle detection, add in your lane-finding algorithm from the last project to do simultaneous lane-finding and vehicle detection!
+My project includes the following files:
+* Vehicle_Detection_and_Tracking.ipynb - the notebook with the data preprocessing, model training, vehicle detection pipeline and all the helper methods
+* model.h5 - containing the trained convolution neural network
+* model.json - the architecture of the model as json
+* writeup.md - summarizing the project and results
+* test_images - the folder contain the test images and output images of the pipeline
+* test_videos - the folder contain the test videos
 
-**If you're feeling ambitious** (also totally optional though), don't stop there!  We encourage you to go out and take video of your own, and show us how you would implement this project on a new video!
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+## Output video
 
+The output video of the vehicles detection can be found here:
+
+Track 1  |  Track 2 (partially)
+:-------------------------:|:-------------------------:
+[![video track_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_1.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)  |  [![video track_2](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_2.gif)](http://www.youtube.com/watch?v=A1280XlpITA)
+
+
+## Dependencies
+This project requires **Python 3.5** and the following Python libraries installed:
+
+- [Jupyter](http://jupyter.org/)
+- [NumPy](http://www.numpy.org/)
+- [Matplotlib](https://matplotlib.org/)
+- [OpenCV](https://pypi.python.org/pypi/opencv-python#)
+- [Sklearn](scikit-learn.org/)
+- [SciPy](https://www.scipy.org/)
+- [Skimage](http://scikit-image.org/)
+- [TensorFlow](http://tensorflow.org) version 1.2.1
+- [Keras](https://keras.io/) version 2.0.6
