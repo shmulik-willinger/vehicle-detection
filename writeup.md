@@ -1,38 +1,50 @@
-##Writeup Template
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+# **Vehicle Detection**
 
+**Write a software pipeline to detect and track vehicles in a video from a front-facing camera on a car**
+
+
+The Goals
 ---
-
-**Vehicle Detection Project**
-
 The goals / steps of this project are the following:
 
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
-* Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
+* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images binned it with a color transform, to train Linear SVM classifier
 * Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
-
-[//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
-
-## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+* Design, train and validate a model that perform vehicle detection on images
+* Use the model to detect vehicles on video frames
+* Summarize the results with a written report
 
 ---
-###Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+## Collecting the Training Set
 
-You're reading it!
+For this project I needed labeled data for vehicle and non-vehicle examples to train my classifier. I used Udacity recomandation and took the dataset from the following sources:
+1. [GTI vehicle image database ](http://www.gti.ssr.upm.es/data/Vehicle_database.html)
+2. [KITTI vision benchmark suite ](http://www.cvlibs.net/datasets/kitti/)
+3. [Udacity vehicle dataset](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/58ae4419_windows-sim/windows-sim.zip)
+
+I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
+
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/dataset_sample.jpg?raw=true)
+
+Most of the image data was extracted from video, so we may be dealing with sequences of images where the target object (vehicles) appear almost identical in a whole series of images. To prevent a case were images in the training set may be nearly identical to images in the test set which will lead to  overfitting, I used the HOG transform (detailed bellow) to remove images that were too identical to each pther, and also added a randomized train-test split on the data before feeding the model, and also shuffled inside the model generator method.
+
+
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/dataset_sample.jpg?raw=true)
+
+I used cv2.flip method to double the training set when feeding the model.
+
+
+---
+
+## Training process
+
+I tried some combinations of color and gradient based features, with lots of experiments to decide what works best.
+I started with linear SVM classifier as the best bet for combination of speed and accuracy.
+
+I created a sliding window method to search for vehicles in a region that were predefine.
+* The search window was set to 64X64 pixels, as the input dataset shape
+* The input image part to scan was set to 300X1280 (only the road part), In order to minimize the number of search windows, and to reduce the false positive (only the road part, in order to ).
+* The sliding window was using special technique of combining different tiling schemes with different sizes
 
 ###Histogram of Oriented Gradients (HOG)
 
@@ -40,7 +52,6 @@ You're reading it!
 
 The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
 
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
 ![alt text][image1]
 
@@ -105,4 +116,3 @@ Here's an example result showing the heatmap from a series of frames of video, t
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-
