@@ -34,9 +34,9 @@ My project includes the following files:
 
 The output video of the vehicles detection can be found here:
 
-Track 1  |  Track 2 (partially)
+Video 1  |  Video 2
 :-------------------------:|:-------------------------:
-[![video track_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_1.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)  |  [![video track_2](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_2.gif)](http://www.youtube.com/watch?v=A1280XlpITA)
+[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_1.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)  |  [![video_2](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_2.gif)](http://www.youtube.com/watch?v=A1280XlpITA)
 
 
 ## Dependencies
@@ -49,5 +49,6 @@ This project requires **Python 3.5** and the following Python libraries installe
 - [Sklearn](scikit-learn.org/)
 - [SciPy](https://www.scipy.org/)
 - [Skimage](http://scikit-image.org/)
+- [MoviePy](http://zulko.github.io/moviepy/)
 - [TensorFlow](http://tensorflow.org) version 1.2.1
 - [Keras](https://keras.io/) version 2.0.6
