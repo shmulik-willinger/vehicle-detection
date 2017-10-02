@@ -31,51 +31,91 @@ In the image below we can see an example of comparison between two images from t
 
 ![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/comparing_images.jpg?raw=true)
 
-I added a randomized train-test split on the data before feeding the model, and also shuffled inside the model generator method. Additionally, I used cv2.flip method to double the training set when feeding the model.
+I added a randomized train-test split on the data with 20% for test, and then ran it again with 20% for the validation set. Additionally, I used cv2.flip method to double the training set when feeding the model.
+
+After the preprocessing step, my data set distribution was:
+
+Number of training examples = 26566
+Number of validation examples = 6642
+Number of testing examples = 8304
+Image data shape = (64, 64, 1)
+Number of classes = 2
+Here is the visualization bar chart showing the distribution of the images:
+
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/dataset_distribution.jpg?raw=true)
 
 ---
 
-## Training process
+## Model training
+
+### Approach taken for finding the solution
+
+The main goal in this project is to detect the location of the vehicles in an image frames. Convolutional Neural Networks are great for this type of problems, and since I'm savvy and feeling confident with it, I decided to train a CNN for this purpose.
+I have read some interesting articles about this approach, including [YOLO architecture](https://medium.com/towards-data-science/yolo-you-only-look-once-real-time-object-detection-explained-492dc9230006) and [VGGx](https://www.pyimagesearch.com/2017/03/20/imagenet-vggnet-resnet-inception-xception-keras/), and eventually based my network on the VGG16 architecture with a couple of thanges I made. The input shape was set to 64X64 to fit the dataset images shape, and I also changed the filters size, padding type, and added Dropout layers. On the final layer I added Conv2D with filter of 1 as the binarry classification - vehicle or not.
+
+### Model Architecture
+
+My model consisted of the following layers:
+
+
+| Layer | Component    	|     Output	 	|
+|:----------------:|:------------:|:------------:|
+| Lambda | Normalization and mean zero | (None, 300, 1280, 3) |
+| Convolution | filters=16, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu' | (None, 300, 1280, 16) |
+| Dropout	| rate=0.5 | (None, 300, 1280, 16)) |
+| Convolution |	filters=32, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu'	|(None, 300, 1280, 32) |
+| Dropout	| rate=0.5 | (None, 300, 1280, 32) |
+| Convolution |filters=64, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu'	| (None, 300, 1280, 64) |
+| Dropout	| rate=0.5 | (None, 300, 1280, 64) |
+| Max Pooling	| pool_size=(8, 8), padding='valid' | (None, 37, 160, 64) |
+| Dropout	| rate=0.5 | (None, 37, 160, 64) |
+| Convolution - Output	| filters=1, kernel_size=(8, 8), strides=(1, 1), padding='valid', activation='sigmoid' | (None, 30, 153, 1) |
+
+The network consists of a convolution neural network starting with normalization layer that divide each pixel by 255 (max value) in order to get the value range between 0 to 1.
+Next, I have 3 convolution layers with kernel of 3x3 and 1 Max pool layer pool size of 8X8. filter sizes and depths between 16 and 64, followed by Dropout layers between them.
+
+The model uses RELU activation on the layers to introduce nonlinearity, and the data is normalized in the model using a Keras lambda layer.
+
+At the end of the model I added 1 convolution layer as the single output node for the prediction (Vehicle or not)
+
+### Using Generator
+
+The dataset contains thousands of images (for vehicles and not-vehicles) and each image contains 12,288 pixels (64X64X3).
+When the model is running on all of the dataset images we need a huge memory for the network training.
+I used Generator, enables to train the model by producing batches with data processing in real time, only when the model need it.
+
+### Training process
+
+The model was written with Keras over Tensorflow. I used the 'adam' optimizer, so the learning rate was not tuned manually. I used 5 epochs and batch size of 32 with attention to the memory usage. I used the ModelCheckpoint as the model callback, which saved the model after every epoch and also has the 'max' mode which takes the maximum of the monitored quantity, and saved the highest val_acc for the epochs.
+
+Training was performed on an Amazon g2.2xlarge GPU server, and it took '1 Hour' (much more then the SVM approach).
+
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/model_training.jpg?raw=true)
+
+My final model results were:
+
+* Training set accuracy of 98.5%
+* Validation set accuracy of 98.6%
+* Test set accuracy of 98.8%
+
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/model_mse.jpg?raw=true)
+
+---
+
+### Search window
 
 I tried some combinations of color and gradient based features, with lots of experiments to decide what works best.
-I started with linear SVM classifier as the best bet for combination of speed and accuracy.
 
 I created a sliding window method to search for vehicles in a region that were predefine.
 * The search window was set to 64X64 pixels, as the input dataset shape
 * The input image part to scan was set to 300X1280 (only the road part), In order to minimize the number of search windows, and to reduce the false positive (only the road part, in order to ).
-* The sliding window was using special technique of combining different tiling schemes with different sizes
+* The sliding window was using special technique of combining different tiling schemes with different sizes. The region of interest was set to 300X1280
 
-###Histogram of Oriented Gradients (HOG)
+## Main pipeline
 
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+---
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
-
-
-![alt text][image1]
-
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
-
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
-
-
-![alt text][image2]
-
-####2. Explain how you settled on your final choice of HOG parameters.
-
-I tried various combinations of parameters and...
-
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
-
-I trained a linear SVM using...
-
-###Sliding Window Search
-
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
-
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
-
-![alt text][image3]
+## Test the Model on New Images
 
 ####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
