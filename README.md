@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 
 ## Details About the Files
 
-The project includes all required files and can be used to run the simulator in autonomous mode
+The project includes all required files and can be used to run the pipeline on new video streams
 
 My project includes the following files:
 * Vehicle_Detection_and_Tracking.ipynb - the notebook with the data preprocessing, model training, vehicle detection pipeline and all the helper methods

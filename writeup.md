@@ -26,13 +26,12 @@ I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an 
 
 ![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/dataset_sample.jpg?raw=true)
 
-Most of the image data was extracted from video, so we may be dealing with sequences of images where the target object (vehicles) appear almost identical in a whole series of images. To prevent a case were images in the training set may be nearly identical to images in the test set which will lead to  overfitting, I used the HOG transform (detailed bellow) to remove images that were too identical to each pther, and also added a randomized train-test split on the data before feeding the model, and also shuffled inside the model generator method.
+Most of the image data was extracted from video, so we may be dealing with sequences of images where the target object (vehicles) appear almost identical in a whole series of images. To prevent a case were images in the training set may be nearly identical to images in the test set which will lead to overfitting, I used some techniques to examine some nearly identical images.
+In the image below we can see an example of comparison between two images from the GIT dataset: 'image0115.png' and 'image0112.png'. The comparison includes HOG transform, Spatial and RGB color features for each image. It's nice to see that although a human eye will hardly notice the difference, the HOG result and spatial binned features are quite different. After exploring number of different examples from the dataset - I dicided to keep all the original images and not to drop them.
 
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/comparing_images.jpg?raw=true)
 
-![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/dataset_sample.jpg?raw=true)
-
-I used cv2.flip method to double the training set when feeding the model.
-
+I added a randomized train-test split on the data before feeding the model, and also shuffled inside the model generator method. Additionally, I used cv2.flip method to double the training set when feeding the model.
 
 ---
 
