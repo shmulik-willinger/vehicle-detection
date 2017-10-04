@@ -36,7 +36,7 @@ The output video of the vehicles detection can be found here:
 
 Video 1  |  Video 2
 :-------------------------:|:-------------------------:
-[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_1.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)  |  [![video_2](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/behavioral_cloning_simulator_track_2.gif)](http://www.youtube.com/watch?v=A1280XlpITA)
+[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)  |  [![video_2](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](http://www.youtube.com/watch?v=A1280XlpITA)
 
 
 ## Dependencies
