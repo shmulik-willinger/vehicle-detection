@@ -33,16 +33,11 @@ In the image below we can see an example of comparison between two images from t
 
 I added a randomized train-test split on the data with 20% for test, and then ran it again with 20% for the validation set. Additionally, I used cv2.flip method to double the training set when feeding the model.
 
-After the preprocessing step, my data set distribution was:
-
-Number of training examples = 26566
-Number of validation examples = 6642
-Number of testing examples = 8304
-Image data shape = (64, 64, 1)
-Number of classes = 2
-Here is the visualization bar chart showing the distribution of the images:
+Here is the visualization bar chart showing the distribution of the dataset after the preprocessing step:
 
 ![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/dataset_distribution.jpg?raw=true)
+
+Image data shape = (64, 64, 1), Number of classes = 2
 
 ---
 
@@ -58,8 +53,8 @@ I have read some interesting articles about this approach, including [YOLO archi
 My model consisted of the following layers:
 
 
-| Layer | Component    	|     Output	 	|
-|:----------------:|:------------:|:------------:|
+| Layer | Component  	| Output	|
+|:---------------:|:------------:|:--------------:|
 | Lambda | Normalization and mean zero | (None, 300, 1280, 3) |
 | Convolution | filters=16, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu' | (None, 300, 1280, 16) |
 | Dropout	| rate=0.5 | (None, 300, 1280, 16)) |
@@ -113,41 +108,36 @@ I created a sliding window method to search for vehicles in a region that were p
 
 ## Main pipeline
 
+The main pipeline can be found on the 'detect_vehicles' method in the project notebook. The method receiving an image of 720X1280 and consists of the following steps:
+
+1. cutting the region of interest from the image. the area were the vehicles can be found is only on the road, so I'm cutting the 'Unnecessary' parts of the image, and using only pixels from 400 to 700 (from the top of the image). The image has 3 channels, so the model input shape will be (300,1280,3).
+2. Running the model prediction on the image will return a list of (x,y) predictions. First, I'm using threshold of 0.5 on the results to get the boolean classification results, and then I have a loop running on all the detected pixels to order them in a list of boxes.(topLeft, bottomRight).
+3. Creating a HeatMap represents the original image, where each pixel gets rating by the number of appearance on the detected boxes.
+4. Adding the boxes to a history-list in order to get smother affect for the video stream.
+5. Applying cv2.groupRectangles() method on the 'history box-list' to avoid duplicatation and attach boxes with identical pixel resulution.
+6. Draw the boxes on the original image using cv2.rectangle() method.
+
+Here is an example of the main pipeline output:
+
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/pipeline_output.png?raw=true)
+
 ---
 
 ## Test the Model on New Images
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+Here are some examples of test images demonstrating the pipeline steps. The right images illustrate the boxes detected as vehicles from the model prediction. On the middle of each row we can see the 'HeatMap', represented how many boxes detected each pixel in the image. On the left we can see the pipeline output with the boxes around the vehicles detection.
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
-
-![alt text][image4]
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/test_images.png?raw=true)
 ---
 
-### Video Implementation
+## Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+I recorded the positions of positive detections in each frame of the video. From the positive detections I created a heatmap and then thresholded that map using `cv2.threshold()` to identify vehicle positions. I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap, where I assumed each blob corresponded to a vehicle in the image. I used an array called `previous_boxes` where for each video frame - I'm calling the 'save_boxes' method to update the boxes array with the new model predictions, saving alwayes the last 45 detected boxes for smother output. In the 'group_regions()' method from the notebook I constructed bounding boxes using `cv2.groupRectangles` to cover the area of each blob detected.  
 
+I was satisfied that the image processing pipeline that was established to detect vehicles in images was also successfully processed the video.
+The Vehicle Detection and Tracking video output can be found on the video_output folder and on the link below:
 
-####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
-
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
-
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
-
-### Here are six frames and their corresponding heatmaps:
-
-![alt text][image5]
-
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-![alt text][image6]
-
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
-![alt text][image7]
-
-
-
+[![video output](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/project_video_extended.gif)](http://www.youtube.com/watch?v=hj4r5QzZNMY)
 ---
 
 ###Discussion

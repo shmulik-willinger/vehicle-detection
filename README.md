@@ -5,7 +5,7 @@ Overview
 ---
 In this project, the goal is to write a software pipeline to detect vehicles in a video. First we'll train a model of deep neural networks and convolutional neural networks, and then we'll use this model to performed detection on video frames.
 
-![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/test-img.png?raw=true)
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/pipeline_output.png?raw=true)
 
 The Goals
 ---
