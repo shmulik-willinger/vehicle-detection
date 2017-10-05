@@ -5,6 +5,8 @@ Overview
 ---
 In this project, the goal is to write a software pipeline to detect vehicles in a video. First we'll train a model of deep neural networks and convolutional neural networks, and then we'll use this model to performed detection on video frames.
 
+A detailed description of the project including the model, data and visualizing is also provided  [here](https://github.com/shmulik-willinger/vehicle_detection/blob/master/writeup_template.md)
+
 ![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/pipeline_output.png?raw=true)
 
 The Goals
@@ -19,7 +21,7 @@ The goals / steps of this project are the following:
 
 ## Details About the Files
 
-The project includes all required files and can be used to run the pipeline on new video streams
+The project includes all required files and can be used to run the pipeline on new images and video streams
 
 My project includes the following files:
 * Vehicle_Detection_and_Tracking.ipynb - the notebook with the data preprocessing, model training, vehicle detection pipeline and all the helper methods
@@ -32,11 +34,9 @@ My project includes the following files:
 
 ## Output video
 
-The output video of the vehicles detection can be found here:
+The Vehicle Detection and Tracking video output can be found on the video_output folder and on the link below:
 
-Video 1  |  Video 2
-:-------------------------:|:-------------------------:
-[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)  |  [![video_2](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](http://www.youtube.com/watch?v=A1280XlpITA)
+[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)
 
 
 ## Dependencies
