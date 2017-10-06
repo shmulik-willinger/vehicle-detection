@@ -137,7 +137,7 @@ I recorded the positions of positive detections in each frame of the video. From
 I was satisfied that the image processing pipeline that was established to detect vehicles in images was also successfully processed the video.
 The Vehicle Detection and Tracking video output can be found on the video_output folder and on the link below:
 
-[![video output](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](http://www.youtube.com/watch?v=hj4r5QzZNMY)
+[![video output](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)
 
 ---
 

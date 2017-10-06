@@ -7,7 +7,7 @@ In this project, the goal is to write a software pipeline to detect vehicles in 
 
 A detailed description of the project including the model, data and visualizing is also provided  [here](https://github.com/shmulik-willinger/vehicle_detection/blob/master/writeup_template.md)
 
-![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/pipeline_output.png?raw=true)
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/pipeline_merge.png?raw=true)
 
 The Goals
 ---
@@ -31,12 +31,13 @@ My project includes the following files:
 * test_images - the folder contain the test images and output images of the pipeline
 * test_videos - the folder contain the test videos
 
-
 ## Output video
 
 The Vehicle Detection and Tracking video output can be found on the video_output folder and on the link below:
 
-[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](http://www.youtube.com/watch?v=fIvBNRCIY4U)
+https://youtu.be/Evzcbst9_PA
+
+[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)
 
 
 ## Dependencies
