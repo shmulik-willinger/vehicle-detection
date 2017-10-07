@@ -41,7 +41,7 @@ The 'Vehicle Detection and Tracking' video outputs can be found on the video_out
 
 Project video  |  Extended display video
 :-------------------------:|:-------------------------:
-[![Project video](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)  |  [![Extended display video](https://github.com/shmulik-willinger/vehicle_detectio/blob/master/readme_img/video_output_extended.gif)](http://www.youtube.com/watch?v=Evzcbst9_PA)
+[![Project video](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)  |  [![Extended display video](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_extended.gif)](http://www.youtube.com/watch?v=Evzcbst9_PA)
 
 ## Dependencies
 This project requires **Python 3.5** and the following Python libraries installed:
