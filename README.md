@@ -9,6 +9,10 @@ A detailed description of the project including the model, data and visualizing 
 
 ![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/pipeline_merge.png?raw=true)
 
+I combined this vehicle detection pipeline with the lane finding implementation from the [last project](https://github.com/shmulik-willinger/advanced_lane_finding). The Extended display video output can be found in the link below
+
+![]( https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/final_pipeline_result.png?raw=true)
+
 The Goals
 ---
 The goals / steps of this project are the following:
@@ -33,12 +37,11 @@ My project includes the following files:
 
 ## Output video
 
-The Vehicle Detection and Tracking video output can be found on the video_output folder and on the link below:
+The 'Vehicle Detection and Tracking' video outputs can be found on the video_output folder and on the links below:
 
-https://youtu.be/Evzcbst9_PA
-
-[![video_1](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)
-
+Project video  |  Extended display video
+:-------------------------:|:-------------------------:
+[![Project video](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)  |  [![Extended display video](https://github.com/shmulik-willinger/vehicle_detectio/blob/master/readme_img/video_output_extended.gif)](http://www.youtube.com/watch?v=Evzcbst9_PA)
 
 ## Dependencies
 This project requires **Python 3.5** and the following Python libraries installed:

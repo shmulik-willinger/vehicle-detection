@@ -134,10 +134,13 @@ Here are some examples of test images demonstrating the pipeline steps. The righ
 
 I recorded the positions of positive detections in each frame of the video. From the positive detections I created a heatmap and then used `cv2.threshold()` to identify vehicle positions. I then used `scipy.ndimage.measurements.label()` which outlining the boundaries of labels to identify individual blobs in the heatmap, where I assumed each blob corresponded to a vehicle in the image. I used an array called `previous_boxes`, where for each video frame - I'm calling the 'save_boxes' method to update the boxes array with the new model predictions, saving alwayes the last 30 detected boxes for smoother result. I used `cv2.groupRectangles` in the 'group_regions()' method to construct bounding boxes which cover the area of each blob detected.  
 
-I was satisfied that the image processing pipeline that was established to detect vehicles in images was also successfully processed the video.
-The Vehicle Detection and Tracking video output can be found on the video_output folder and on the link below:
+I was satisfied that the image processing pipeline does a great job of identifying and tracking vehicles in the video frames.
+I combined this vehicle detection pipeline with the lane finding implementation from the [last project](https://github.com/shmulik-willinger/advanced_lane_finding).  
+The Vehicle Detection and Tracking video output can be found on the video_output folder and on the links below:
 
-[![video output](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)
+Project video  |  Extended display video
+:-------------------------:|:-------------------------:
+[![Project video](https://github.com/shmulik-willinger/vehicle_detection/blob/master/readme_img/video_output_sample.gif)](https://youtu.be/AI3DJ7U_PAI)  |  [![Extended display video](https://github.com/shmulik-willinger/vehicle_detectio/blob/master/readme_img/video_output_extended.gif)](http://www.youtube.com/watch?v=Evzcbst9_PA)
 
 ---
 
